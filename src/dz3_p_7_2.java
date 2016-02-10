@@ -42,8 +42,8 @@ public class dz3_p_7_2 {
             // ищем кнопку Generate и жмем на нее
             drv.findElement(By.xpath("//*[@value=\"Generate\"]")).click();
 
-            // ждем 100 мс
-            Thread.sleep(100);
+            // ждем 50 мс
+            Thread.sleep(50);
 
             // ищем поле с новым паролем и получаем из него результат !!! заметим себе, что getText тут не работал((((
             res[1] = drv.findElement(By.name("password")).getAttribute("value");
@@ -51,8 +51,8 @@ public class dz3_p_7_2 {
             // забиваем первый результат как эталонный
             if (i==0) res[0]=res[1];
 
-            // ждем 100 мс
-            Thread.sleep(100);
+            // ждем 50 мс
+            Thread.sleep(50);
 
             // чистим первые два поля
             drv.findElement(By.name("master")).clear();
@@ -62,9 +62,6 @@ public class dz3_p_7_2 {
             if (i>0  && res[1].equals(res[0])) {
                 k++;
             }
-
-            // ждем 500 мс
-            Thread.sleep(500);
 
         }
 
