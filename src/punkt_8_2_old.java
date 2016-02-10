@@ -10,42 +10,43 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class punkt_8_2_old {
     public static void main(String[] args) throws InterruptedException {
 
-        // знакомим chromedriver.exe с IntelliJ IDEA
+        // Р·РЅР°РєРѕРјРёРё chromedriver.exe пїЅ IntelliJ IDEA
         System.setProperty("webdriver.chrome.driver", "D:\\Trane\\external\\chromedriver\\chromedriver.exe");
 
-        // запускаем chromedriver.exe
+        // Р·Р°РїСѓСЃРєР°РµРј chromedriver.exe
         WebDriver drv = new ChromeDriver();
 
-        // заходим в гугл
+        // Р·Р°С…РѕРґРёРј РІ РіСѓРіР»
         drv.get("https://www.google.com.ua");
 
-        // ищем поисковое поле гугла и вводим для поиска "ткачёв"
-        drv.findElement(By.id("lst-ib")).sendKeys("ткачёв");
+        // РёС‰РµРј РїРѕРёСЃРєРѕРІРѕРµ РїРѕР»Рµ РіСѓРіР»Р° Рё РІРІРѕРґРёРј РґР»СЏ РїРѕРёСЃРєР° "С‚РєР°С‡С‘РІ"
+        drv.findElement(By.id("lst-ib")).sendKeys("С‚РєР°С‡С‘РІ");
 
-        // ждем 1000 мс
+        // Р¶РґРµРј 1000 РјСЃ
         Thread.sleep(1000);
 
-        // ищем кнопку поиск и жмем на нее
-        drv.findElement(By.xpath("//body//button[@value=\"Поиск\"]")).click();
+        // РёС‰РµРј РєРЅРѕРїРєСѓ РїРѕРёСЃРє Рё Р¶РјРµРј РЅР° РЅРµРµ
+        drv.findElement(By.xpath("//body//button[@value=\"РџРѕРёСЃРє\"]")).click();
 
-        // ждем 3000 мс
+        // Р¶РґРµРј 1000 РјСЃ
         Thread.sleep(1000);
 
+        // РѕР±СЉСЏРІР»СЏРµРј СЃС‚СЂРёРЅРіРѕРІС‹Р№ РјР°СЃСЃРёРІ РґР»СЏ СЃСЃС‹Р»РѕРє
         String[] res;
         res = new String[10];
 
-	// 
+	    // РіСЂР°Р±РёРј Рё РІС‹РІРѕРґРёРј СЃСЃС‹Р»РєРё
         for (int i=0; i<10; i++) {
             res[i] = drv.findElement(By.xpath("//*[@id=\"rso\"]/div/div[" + (i+1) + "]/div/h3/a")).getAttribute("href");
             Thread.sleep(300);
-            System.out.println((i+1) + "-я ссылка: " + res[i]);
+            System.out.println((i+1) + "-СЏ СЃСЃС‹Р»РєР°: " + res[i]);
         }
         if (!res[9].isEmpty()) {
-            System.out.println("Тест успешный");     // если +, то вернуть "Тест успешный"
-        } else {                                     // закрываем иф и делаем элс
-            System.out.println("Тест неуспешный");   // если -, то вернуть "Тест неуспешный"
+            System.out.println("С‚РµСЃС‚ СѓСЃРїРµС€РЅС‹Р№");     // РµСЃР»Рё +, С‚Рѕ РІС‹РІРѕРґРёРј "С‚РµСЃС‚ СѓСЃРїРµС€РЅС‹Р№"
+        } else {                                     // Р·Р°РєСЂС‹РІР°РµРј РёС„ Рё РґРµР»Р°РµРј СЌР»СЃ
+            System.out.println("С‚РµСЃС‚ РЅРµСѓСЃРїРµС€РЅС‹Р№");   // РµСЃР»Рё 0, С‚Рѕ РІС‹РІРѕРґРёРј "С‚РµСЃС‚ РЅРµСѓСЃРїРµС€РЅС‹Р№"
         }
-        // закрываем chromedriver.exe
+        // Р·Р°РєСЂС‹РІР°РµРј chromedriver.exe
         drv.quit();
     }
 }
