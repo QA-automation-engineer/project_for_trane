@@ -9,12 +9,16 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.List;
 
 /**
- * Created by Vladimir on 14.02.2016.
+ * Created by Vladimir on 17.02.2016.
  */
-public class TestPravoslavie {
+public class TestPravoslavie2
+{
 
     // создаем статическую переменную класса WebDriver
     static WebDriver drv;
+
+    // объявляем func класса SupportingFunctions
+    static SupportingFunctions func;
 
     // перед началом всех тестов инициализируем chromedriver.exe и заходим на pravoslavie.ru
     @BeforeClass
@@ -28,6 +32,9 @@ public class TestPravoslavie {
 
         // заходим на pravoslavie.ru
         drv.get("http://www.pravoslavie.ru/");
+
+        // привязываем func к драйверу
+        func = new SupportingFunctions(drv);
     }
 
     // после всех тестов закрываем chromedriver.exe и очищаем его инициализацию
@@ -52,13 +59,10 @@ public class TestPravoslavie {
     // тест ищет результаты по запросу "Ткачев" и проверяет, что все статьи с авторами принадлежат Ткачеву
     //@Ignore
     @Test
-    public void TestRuSearch() throws InterruptedException
+    public void TestRuSearch()
     {
-        // ищем поисковое поле и вводим в него "Ткачев"
-        drv.findElement(By.id("searchFormInput")).sendKeys("Ткачев");
-
-        // ищем кнопку поиска и жмем на нее
-        drv.findElement(By.xpath("//input[@value=\"Найти\"]")).click();
+        // выполняем запрос "Ткачев"
+        func.search("Ткачев");
 
         // проверяем, что произошел переход на страницу с результатом поиска
         Assert.assertEquals("Не произошел переход на страницу с результатом поиска", "Поиск по сайту", drv.findElement(By.xpath("//body//h1")).getText());
@@ -66,7 +70,7 @@ public class TestPravoslavie {
         // сообщаем, что произошел переход на страницу с результатом поиска
         System.out.println("Произошел переход на страницу с результатом поиска");
 
-        Thread.sleep(1000);
+        func.waitForSomeTime(3000);
 
         // определяем количество статей, для которых указан автор
         int resultCount = drv.findElements(By.xpath("//body//ul//li//span[@class=\"block-publications__author\"]")).size();
@@ -74,10 +78,10 @@ public class TestPravoslavie {
         // формируем массив из статей, для которых указан автор
         List<WebElement> res = drv.findElements(By.xpath("//body//ul//li//span[@class=\"block-publications__author\"]"));
 
-        // количество результатов, удовлетворяющих критерию(-ям)
+        // объявляем переменную для количества статей, у которых автор Ткачев
         int k = 0;
 
-        // цикл на проверку соответствия каждого результата критерию(-ям)
+        // цикл проверки статей на авторство Ткачева
         for (int i=0; i<resultCount; i++)
         {
             // считаем количество результатов поиска с автором "Протоиерей Андрей Ткачев" или "Протојереј Андреј Ткачев"
@@ -87,7 +91,7 @@ public class TestPravoslavie {
             }
         }
 
-        // проверяем, что все авторские статьи принадлежат искомому автору
+        // проверяем, что все авторские статьи принадлежат Ткачеву
         Assert.assertEquals("Количество статей, принадлежащих Ткачеву, и всего статей с автором - разное", resultCount, k);
         System.out.println("Expected (всего статей с автором): " + resultCount);
         System.out.println("Actual (статей, принадлежащих Ткачеву): " + k);
@@ -98,13 +102,10 @@ public class TestPravoslavie {
     // Тест проверяет, что по запросу "Nrfxtd" (Ткачев) нет результатов поиска
     //@Ignore
     @Test
-    public void TestEnSearch() throws InterruptedException
+    public void TestEnSearch()
     {
-        // ищем поисковое поле и вводим в него "Nrfxtd"
-        drv.findElement(By.id("searchFormInput")).sendKeys("Nrfxtd");
-
-        // ищем кнопку поиска и жмем на нее
-        drv.findElement(By.xpath("//input[@value=\"Найти\"]")).click();
+        // выполняем запрос "Nrfxtd"
+        func.search("Nrfxtd");
 
         // проверяем, что произошел переход на страницу с результатом поиска
         Assert.assertEquals("Не произошел переход на страницу с результатом поиска", "Поиск по сайту", drv.findElement(By.xpath("//body//h1")).getText());
@@ -112,7 +113,7 @@ public class TestPravoslavie {
         // сообщаем, что произошел переход на страницу с результатом поиска
         System.out.println("Произошел переход на страницу с результатом поиска");
 
-        Thread.sleep(1000);
+        func.waitForSomeTime(3000);
 
         // проверяем, что по запросу "Nrfxtd" ничего не найдено
         Assert.assertEquals("На поисковой запрос Nrfxtd есть результат", "Ничего не нашлось :(", drv.findElement(By.className("block-publications__nofind")).getText());
@@ -125,13 +126,10 @@ public class TestPravoslavie {
     // тест проверяет, что по запросу "НАЧИНКА И ОБОЛОЧКА" сайт первым результатом выдает искомую статью
     //@Ignore
     @Test
-    public void TestPaperSearch() throws InterruptedException
+    public void TestPaperSearch()
     {
-        // ищем поисковое поле и вводим в него "НАЧИНКА И ОБОЛОЧКА"
-        drv.findElement(By.id("searchFormInput")).sendKeys("НАЧИНКА И ОБОЛОЧКА");
-
-        // ищем кнопку поиска и жмем на нее
-        drv.findElement(By.xpath("//input[@value=\"Найти\"]")).click();
+        // выполняем запрос "НАЧИНКА И ОБОЛОЧКА"
+        func.search("НАЧИНКА И ОБОЛОЧКА");
 
         // проверяем, что произошел переход на страницу с результатом поиска
         Assert.assertEquals("Не произошел переход на страницу с результатом поиска", "Поиск по сайту", drv.findElement(By.xpath("//body//h1")).getText());
@@ -139,7 +137,7 @@ public class TestPravoslavie {
         // сообщаем, что произошел переход на страницу с результатом поиска
         System.out.println("Произошел переход на страницу с результатом поиска");
 
-        Thread.sleep(1000);
+        func.waitForSomeTime(3000);
 
         // проверяем, что по запросу "НАЧИНКА И ОБОЛОЧКА" первый результат поиска одноименный
         Assert.assertEquals("По поисковому запросу НАЧИНКА И ОБОЛОЧКА первый результат не одноименный", "НАЧИНКА И ОБОЛОЧКА", drv.findElement(By.className("block-publications__title")).getText());
