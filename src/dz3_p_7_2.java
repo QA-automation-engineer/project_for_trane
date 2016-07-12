@@ -24,7 +24,7 @@ public class dz3_p_7_2 {
         String pass = "Yferfevttnvyjujubnbr1986";
 
         // количество проверок
-        int n = 1000;
+        int n = 100;
 
         // количество успешных проверок
         int k = 0;
