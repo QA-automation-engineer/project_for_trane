@@ -66,6 +66,7 @@ public class TestPravoslavie2
 
         // проверяем, что произошел переход на страницу с результатом поиска
         Assert.assertEquals("Не произошел переход на страницу с результатом поиска", "Поиск по сайту", drv.findElement(By.xpath("//body//h1")).getText());
+        Assert.assertTrue("Не произошел переход на страницу с результатом поиска", drv.findElement(By.tagName("body")).getText().contains("Поиск по сайту"));
 
         // сообщаем, что произошел переход на страницу с результатом поиска
         System.out.println("Произошел переход на страницу с результатом поиска");
@@ -73,10 +74,10 @@ public class TestPravoslavie2
         func.waitForSomeTime(3000);
 
         // определяем количество статей, для которых указан автор
-        int resultCount = drv.findElements(By.xpath("//body//ul//li//span[@class=\"block-publications__author\"]")).size();
+        int resultCount = drv.findElements(By.className("block-publications__author")).size();
 
         // формируем массив из статей, для которых указан автор
-        List<WebElement> res = drv.findElements(By.xpath("//body//ul//li//span[@class=\"block-publications__author\"]"));
+        List<WebElement> res = drv.findElements(By.className("block-publications__author"));
 
         // объявляем переменную для количества статей, у которых автор Ткачев
         int k = 0;
@@ -109,6 +110,7 @@ public class TestPravoslavie2
 
         // проверяем, что произошел переход на страницу с результатом поиска
         Assert.assertEquals("Не произошел переход на страницу с результатом поиска", "Поиск по сайту", drv.findElement(By.xpath("//body//h1")).getText());
+        Assert.assertTrue("Не произошел переход на страницу с результатом поиска", drv.findElement(By.tagName("body")).getText().contains("Поиск по сайту"));
 
         // сообщаем, что произошел переход на страницу с результатом поиска
         System.out.println("Произошел переход на страницу с результатом поиска");
@@ -133,6 +135,7 @@ public class TestPravoslavie2
 
         // проверяем, что произошел переход на страницу с результатом поиска
         Assert.assertEquals("Не произошел переход на страницу с результатом поиска", "Поиск по сайту", drv.findElement(By.xpath("//body//h1")).getText());
+        Assert.assertTrue("Не произошел переход на страницу с результатом поиска", drv.findElement(By.tagName("body")).getText().contains("Поиск по сайту"));
 
         // сообщаем, что произошел переход на страницу с результатом поиска
         System.out.println("Произошел переход на страницу с результатом поиска");
@@ -146,4 +149,5 @@ public class TestPravoslavie2
         System.out.println("Тест Ткачев-3 успешный!");
         System.out.println("");
     }
+
 }

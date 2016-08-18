@@ -66,10 +66,10 @@ public class TestPravoslavie1 {
         waitForSomeTime(3000);
 
         // определяем количество статей, для которых указан автор
-        int resultCount = drv.findElements(By.xpath("//body//ul//li//span[@class=\"block-publications__author\"]")).size();
+        int resultCount = drv.findElements(By.className("block-publications__author")).size();
 
         // формируем массив из статей, для которых указан автор
-        List<WebElement> res = drv.findElements(By.xpath("//body//ul//li//span[@class=\"block-publications__author\"]"));
+        List<WebElement> res = drv.findElements(By.className("block-publications__author"));
 
         // объявляем переменную для количества статей, у которых автор Ткачев
         int k = 0;
@@ -117,7 +117,7 @@ public class TestPravoslavie1 {
     }
 
     // тест проверяет, что по запросу "НАЧИНКА И ОБОЛОЧКА" сайт первым результатом выдает искомую статью
-    //@Ignore
+    @Ignore
     @Test
     public void TestPaperSearch()
     {
